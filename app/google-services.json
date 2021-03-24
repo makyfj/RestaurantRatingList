@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "148472745192",
+    "project_id": "hwkfirebasefranklinjara",
+    "storage_bucket": "hwkfirebasefranklinjara.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148472745192:android:967aa81383b7db78a4cd5d",
+        "android_client_info": {
+          "package_name": "com.example.assignment_4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148472745192-uh5mj9u3cjanhdoehvvrbnvet9spagho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHZ_Hp5chPlzhXiN8MEiDjO6CM15Vfk00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148472745192-uh5mj9u3cjanhdoehvvrbnvet9spagho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148472745192:android:22a013ed72d44159a4cd5d",
+        "android_client_info": {
+          "package_name": "com.example.hwk2_messages"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148472745192-ttotgbcf6e6efo6sjokqb7ggautdeoej.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hwk2_messages",
+            "certificate_hash": "424baea7a39db392c04bbcd8d0c2bfcaa2b63dbe"
+          }
+        },
+        {
+          "client_id": "148472745192-uh5mj9u3cjanhdoehvvrbnvet9spagho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHZ_Hp5chPlzhXiN8MEiDjO6CM15Vfk00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148472745192-uh5mj9u3cjanhdoehvvrbnvet9spagho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

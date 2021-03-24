@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Franklin Restaurant Ratings</string>
+    <string name="usernameLabel">Username</string>
+    <string name="passwordLabel">Password</string>
+    <string name="loginButtonLabel">LOGIN</string>
+    <string name="restaurantsLabel">Restaurants</string>
+    <string name="addRestaurantLabel">Add Restaurant</string>
+    <string name="addRestaurantButton">ADD RESTAURANT</string>
+    <string name="minimumFilterLabel">Choose Minimum Rating Filter</string>
+    <string name="setFilterButtonLabel">SET FILTER</string>
+    <string name="writtenByLabel">Written by Franklin Jara</string>
+    <string name="versionLabel">Version 1.0</string>
+</resources>
