@@ -45,7 +45,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.restaurants_recyclerview_items, parent, false);
 
-        // Crate new instance of View Holder with the Inflated Individual
+        // Crate a new instance of View Holder with the Inflated Individual
         return new MyViewHolder(itemView);
     }
 
