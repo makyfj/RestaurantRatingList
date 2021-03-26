@@ -5,6 +5,9 @@
     <string name="loginButtonLabel">LOGIN</string>
     <string name="restaurantsLabel">Restaurants</string>
     <string name="addRestaurantLabel">Add Restaurant</string>
+    <string name="addRestaurantNameLabel">Name</string>
+    <string name="addRestaurantLocationLabel">Location</string>
+    <string name="addRestaurantRatingLabel">Rating</string>
     <string name="addRestaurantButton">ADD RESTAURANT</string>
     <string name="minimumFilterLabel">Choose Minimum Rating Filter</string>
     <string name="setFilterButtonLabel">SET FILTER</string>

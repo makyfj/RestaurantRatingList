@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -71,7 +71,6 @@ public class RestaurantListActivity extends AppCompatActivity {
                             r1 = new Restaurant(name, rating, location);
                             restaurantList.add(r1);
                             }
-
                             adapter.notifyDataSetChanged();
                         }else{
                             Toast.makeText(getApplicationContext(), "INVLID", Toast.LENGTH_SHORT).show();
@@ -94,7 +93,7 @@ public class RestaurantListActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.addRestaurant:
-                Toast.makeText(getApplicationContext(),"Item 1 Selected",Toast.LENGTH_LONG).show();
+                launchAddRestaurant();
                 return true;
             case R.id.filterByRating:
                 Toast.makeText(getApplicationContext(),"Item 2 Selected",Toast.LENGTH_LONG).show();
@@ -109,4 +108,13 @@ public class RestaurantListActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    // Methods for menu items activities
+
+    // AddRestaurant activity
+    private void launchAddRestaurant(){
+        Intent intent = new Intent(this, AddRestaurant.class);
+        startActivity(intent);
+    }
+    // Filter
 }
