@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,11 +44,6 @@ public class RestaurantListActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
-        // Add test data hardcode
-        //Restaurant r;
-        //r = new Restaurant("The Shed", 3, "Sayville");
-        //restaurantList.add(r);
 
         // Initialize FirebaseFirestore
         db = FirebaseFirestore.getInstance();
@@ -96,13 +92,13 @@ public class RestaurantListActivity extends AppCompatActivity {
                 launchAddRestaurant();
                 return true;
             case R.id.filterByRating:
-                Toast.makeText(getApplicationContext(),"Item 2 Selected",Toast.LENGTH_LONG).show();
+                launchGetRatingActivity();
                 return true;
             case R.id.clearFilter:
-                Toast.makeText(getApplicationContext(),"Item 3 Selected",Toast.LENGTH_LONG).show();
+                launchClearFilter();
                 return true;
             case R.id.appInfo:
-                Toast.makeText(getApplicationContext(),"Item 4 Selected",Toast.LENGTH_LONG).show();
+                launchAppInfo();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -116,5 +112,20 @@ public class RestaurantListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddRestaurant.class);
         startActivity(intent);
     }
-    // Filter
+    // Get Rating activity
+    private void launchGetRatingActivity(){
+        Intent intent = new Intent(this, GetRatingActivity.class);
+        startActivity(intent);
+    }
+
+    // Clear filter
+    private void launchClearFilter(){
+        Intent intent = new Intent(this, RestaurantListActivity.class);
+        startActivity(intent);
+    }
+    // App Info
+    private void launchAppInfo(){
+        Intent intent = new Intent(this, AddInfoActivity.class);
+        startActivity(intent);
+    }
 }
