@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -27,6 +27,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     private List<Restaurant> restaurantList = new ArrayList<>();
     private RecyclerView recyclerView;
     private RestaurantAdapter adapter;
+    private int RatingResult;
 
     private FirebaseFirestore db;
 
@@ -48,33 +49,7 @@ public class RestaurantListActivity extends AppCompatActivity {
         // Initialize FirebaseFirestore
         db = FirebaseFirestore.getInstance();
 
-        db.collection("Hwk3Restaurants")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        Restaurant r1;
-                        String name, location;
-                        long ratingLong;
-                        int rating;
-                        if(task.isSuccessful()){
-                            for(QueryDocumentSnapshot document: task.getResult()){
-                            name = document.getString("Name");
-                            ratingLong = document.getLong("Rating");
-                            location = document.getString("Location");
-
-                            rating = (int)ratingLong;
-                            r1 = new Restaurant(name, rating, location);
-                            restaurantList.add(r1);
-                            }
-                            adapter.notifyDataSetChanged();
-                        }else{
-                            Toast.makeText(getApplicationContext(), "INVLID", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-        //adapter.notifyDataSetChanged();
+        queryDatabase(RatingResult);
     }
 
     // Menu Item
@@ -115,17 +90,75 @@ public class RestaurantListActivity extends AppCompatActivity {
     // Get Rating activity
     private void launchGetRatingActivity(){
         Intent intent = new Intent(this, GetRatingActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 0);
     }
 
     // Clear filter
     private void launchClearFilter(){
-        Intent intent = new Intent(this, RestaurantListActivity.class);
-        startActivity(intent);
+        // Displays all restaurants because rating is 0
+        queryDatabase(0);
     }
     // App Info
     private void launchAppInfo(){
         Intent intent = new Intent(this, AddInfoActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 0){
+            if(resultCode == RESULT_OK){
+                int rating = data.getIntExtra("ratingResult", 0);
+                RatingResult = rating;
+                queryDatabase(RatingResult);
+            }
+
+            if(resultCode == RESULT_CANCELED){
+                Log.d("RATING", "There isn't a rating");
+            }
+        }
+    }
+
+    private void queryDatabase(int ratingData){
+
+        // If GetRatingActivity gets called, it will apply clear
+        if(ratingData > 0){
+            restaurantList.clear();
+        }
+        // If ClearFilter menu item gets clicked, it will apply a rating of 0
+        else if(ratingData == 0){
+            restaurantList.clear();
+        }
+        db.collection("Hwk3Restaurants")
+                .whereGreaterThanOrEqualTo("Rating", ratingData)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        Restaurant r2;
+                        String name, location;
+                        long ratingLong;
+                        int rating;
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document: task.getResult()){
+                                name = document.getString("Name");
+                                ratingLong = document.getLong("Rating");
+                                location = document.getString("Location");
+
+                                rating = (int)ratingLong;
+                                r2 = new Restaurant(name, rating, location);
+
+                                restaurantList.add(r2);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "INVLID", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
     }
 }

@@ -50,12 +50,13 @@ public class AddRestaurant extends AppCompatActivity {
 
                 String name = nameEditText.getText().toString();
                 String location = locationEditText.getText().toString();
-                int rating = ratingRatingBar.getNumStars();
+                float ratingFloat = ratingRatingBar.getRating();
+                int ratingInt = (int)ratingFloat;
 
                 Map<String, Object> addRestaurantMap = new HashMap<>();
                 addRestaurantMap.put("Location", location);
                 addRestaurantMap.put("Name", name);
-                addRestaurantMap.put("Rating", rating);
+                addRestaurantMap.put("Rating", ratingInt);
 
                 String path = "Hwk3Restaurants";
 

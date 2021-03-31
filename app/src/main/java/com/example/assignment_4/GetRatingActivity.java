@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,37 +33,21 @@ public class GetRatingActivity extends AppCompatActivity {
         setFilterButton = findViewById(R.id.setFilterButton);
         setFilterRatingBar = findViewById(R.id.setFilterRatingBar);
 
+        // get intent result
+
         setFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int filterRating = setFilterRatingBar.getNumStars();
 
-                /*
-                Query nameQuery = cities.whereGreaterThanOrEqualTo("name", "San Francisco");
-                 */
-                db.collection("Hwk3Restaurants")
-                        .whereGreaterThanOrEqualTo("Rating", filterRating)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    for(QueryDocumentSnapshot document: task.getResult()){
-                                        Log.d("Rating", document.getId() + " -> " + document.getData());
-                                        launchRestaurantListActivity();
-                                    }
-                                }else{
-                                    Log.d("Rating", "FAILED");
-                                }
-                            }
-                        });
+                float resultRatingFloat = setFilterRatingBar.getRating();
+                int resultRatingInt = (int)resultRatingFloat;
 
+                Intent ratingResult = new Intent();
+                ratingResult.putExtra("ratingResult", resultRatingInt);
+
+                setResult(RESULT_OK, ratingResult);
+                finish();
             }
         });
-    }
-
-    private void launchRestaurantListActivity(){
-        Intent intent = new Intent(this, RestaurantListActivity.class);
-        startActivity(intent);
     }
 }
