@@ -19,6 +19,7 @@ import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class AddRestaurant extends AppCompatActivity {
 
@@ -67,12 +68,12 @@ public class AddRestaurant extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
                                     Toast.makeText(getApplicationContext(), "Restaurant Added", Toast.LENGTH_SHORT).show();
-                                    finish();
                                 }else{
                                     Log.d("Data", "Failed");
                                 }
                             }
                         });
+                finish();
             }
         });
     }

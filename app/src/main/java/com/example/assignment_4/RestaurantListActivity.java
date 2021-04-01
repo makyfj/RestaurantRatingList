@@ -48,7 +48,7 @@ public class RestaurantListActivity extends AppCompatActivity {
         // Initialize FirebaseFirestore
         db = FirebaseFirestore.getInstance();
 
-        queryDatabase(0);
+        queryDatabase();
     }
 
     // Menu Item
@@ -95,7 +95,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     // Clear filter
     private void launchClearFilter(){
         // Displays all restaurants because rating is 0
-        queryDatabase(0);
+        queryDatabase();
     }
     // App Info
     private void launchAppInfo(){
@@ -119,7 +119,39 @@ public class RestaurantListActivity extends AppCompatActivity {
         }
     }
 
-    protected void queryDatabase(int ratingData){
+    private void queryDatabase(){
+
+        restaurantList.clear();
+
+        db.collection("Hwk3Restaurants")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        Restaurant r2;
+                        String name, location;
+                        long ratingLong;
+                        int rating;
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document: task.getResult()){
+                                name = document.getString("Name");
+                                ratingLong = document.getLong("Rating");
+                                location = document.getString("Location");
+
+                                rating = (int)ratingLong;
+                                r2 = new Restaurant(name, rating, location);
+
+                                restaurantList.add(r2);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }else{
+                            Toast.makeText(getApplicationContext(), "INVLID", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void queryDatabase(int ratingData){
 
         restaurantList.clear();
 
