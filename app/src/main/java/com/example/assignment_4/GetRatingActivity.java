@@ -43,7 +43,7 @@ public class GetRatingActivity extends AppCompatActivity {
                 int resultRatingInt = (int)resultRatingFloat;
 
                 Intent ratingResult = new Intent();
-                ratingResult.putExtra("ratingResult", resultRatingInt);
+                ratingResult.putExtra("result", resultRatingInt);
 
                 setResult(RESULT_OK, ratingResult);
                 finish();

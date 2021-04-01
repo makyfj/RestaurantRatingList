@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +27,7 @@ public class AddRestaurant extends AppCompatActivity {
     private EditText locationEditText;
     private RatingBar ratingRatingBar;
     private Button addRestaurantButton;
+    private RestaurantListActivity list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +37,11 @@ public class AddRestaurant extends AppCompatActivity {
         // initialize firebase firestore
         db = FirebaseFirestore.getInstance();
 
-
         // initialize edit text and button
         nameEditText = findViewById(R.id.nameRestaurantEditText);
         locationEditText = findViewById(R.id.locationRestaurantEditText);
         ratingRatingBar = findViewById(R.id.ratingRestarurantRatingBar);
         addRestaurantButton = findViewById(R.id.addRestaurantButton);
-
 
         // on a click Add Restaurant
         addRestaurantButton.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +66,8 @@ public class AddRestaurant extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
-                                    launchRestaurantListActivity();
+                                    Toast.makeText(getApplicationContext(), "Restaurant Added", Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }else{
                                     Log.d("Data", "Failed");
                                 }
@@ -74,10 +75,5 @@ public class AddRestaurant extends AppCompatActivity {
                         });
             }
         });
-    }
-
-    private void launchRestaurantListActivity(){
-        Intent intent = new Intent(this, RestaurantListActivity.class);
-        startActivity(intent);
     }
 }

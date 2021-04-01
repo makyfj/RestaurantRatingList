@@ -27,7 +27,6 @@ public class RestaurantListActivity extends AppCompatActivity {
     private List<Restaurant> restaurantList = new ArrayList<>();
     private RecyclerView recyclerView;
     private RestaurantAdapter adapter;
-    private int RatingResult;
 
     private FirebaseFirestore db;
 
@@ -49,7 +48,7 @@ public class RestaurantListActivity extends AppCompatActivity {
         // Initialize FirebaseFirestore
         db = FirebaseFirestore.getInstance();
 
-        queryDatabase(RatingResult);
+        queryDatabase(0);
     }
 
     // Menu Item
@@ -110,9 +109,8 @@ public class RestaurantListActivity extends AppCompatActivity {
 
         if(requestCode == 0){
             if(resultCode == RESULT_OK){
-                int rating = data.getIntExtra("ratingResult", 0);
-                RatingResult = rating;
-                queryDatabase(RatingResult);
+                int rating = data.getIntExtra("result", 0);
+                queryDatabase(rating);
             }
 
             if(resultCode == RESULT_CANCELED){
@@ -121,16 +119,10 @@ public class RestaurantListActivity extends AppCompatActivity {
         }
     }
 
-    private void queryDatabase(int ratingData){
+    protected void queryDatabase(int ratingData){
 
-        // If GetRatingActivity gets called, it will apply clear
-        if(ratingData > 0){
-            restaurantList.clear();
-        }
-        // If ClearFilter menu item gets clicked, it will apply a rating of 0
-        else if(ratingData == 0){
-            restaurantList.clear();
-        }
+        restaurantList.clear();
+
         db.collection("Hwk3Restaurants")
                 .whereGreaterThanOrEqualTo("Rating", ratingData)
                 .get()
@@ -152,8 +144,8 @@ public class RestaurantListActivity extends AppCompatActivity {
                                 r2 = new Restaurant(name, rating, location);
 
                                 restaurantList.add(r2);
+                                adapter.notifyDataSetChanged();
                             }
-                            adapter.notifyDataSetChanged();
                         }else{
                             Toast.makeText(getApplicationContext(), "INVLID", Toast.LENGTH_SHORT).show();
                         }
