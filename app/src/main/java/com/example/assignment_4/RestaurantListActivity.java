@@ -79,8 +79,6 @@ public class RestaurantListActivity extends AppCompatActivity {
         }
     }
 
-    // Methods for menu items activities
-
     // AddRestaurant activity
     private void launchAddRestaurant(){
         Intent intent = new Intent(this, AddRestaurant.class);
@@ -95,12 +93,18 @@ public class RestaurantListActivity extends AppCompatActivity {
     // Clear filter
     private void launchClearFilter(){
         // Displays all restaurants because rating is 0
-        queryDatabase();
+        queryDatabase(0);
     }
     // App Info
     private void launchAppInfo(){
         Intent intent = new Intent(this, AddInfoActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        queryDatabase(0);
     }
 
     @Override
@@ -121,14 +125,12 @@ public class RestaurantListActivity extends AppCompatActivity {
 
     private void queryDatabase(){
 
-        restaurantList.clear();
-
         db.collection("Hwk3Restaurants")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        Restaurant r2;
+                        Restaurant r1;
                         String name, location;
                         long ratingLong;
                         int rating;
@@ -139,9 +141,9 @@ public class RestaurantListActivity extends AppCompatActivity {
                                 location = document.getString("Location");
 
                                 rating = (int)ratingLong;
-                                r2 = new Restaurant(name, rating, location);
+                                r1 = new Restaurant(name, rating, location);
 
-                                restaurantList.add(r2);
+                                restaurantList.add(r1);
                                 adapter.notifyDataSetChanged();
                             }
                         }else{
@@ -162,7 +164,7 @@ public class RestaurantListActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                        Restaurant r2;
+                        Restaurant r1;
                         String name, location;
                         long ratingLong;
                         int rating;
@@ -173,13 +175,13 @@ public class RestaurantListActivity extends AppCompatActivity {
                                 location = document.getString("Location");
 
                                 rating = (int)ratingLong;
-                                r2 = new Restaurant(name, rating, location);
+                                r1 = new Restaurant(name, rating, location);
 
-                                restaurantList.add(r2);
+                                restaurantList.add(r1);
                                 adapter.notifyDataSetChanged();
                             }
                         }else{
-                            Toast.makeText(getApplicationContext(), "INVLID", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "INVALID", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
