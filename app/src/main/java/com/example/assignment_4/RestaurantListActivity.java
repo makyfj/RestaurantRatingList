@@ -82,7 +82,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     // AddRestaurant activity
     private void launchAddRestaurant(){
         Intent intent = new Intent(this, AddRestaurant.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
     // Get Rating activity
     private void launchGetRatingActivity(){
@@ -111,6 +111,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // Return this request code for getRatingActivity
         if(requestCode == 0){
             if(resultCode == RESULT_OK){
                 int rating = data.getIntExtra("result", 0);
@@ -119,6 +120,18 @@ public class RestaurantListActivity extends AppCompatActivity {
 
             if(resultCode == RESULT_CANCELED){
                 Log.d("RATING", "There isn't a rating");
+            }
+        }
+
+        // Return this request code for addRestrictionActivity
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                int result = data.getIntExtra("result", 0);
+                queryDatabase(result);
+            }
+
+            if(resultCode == RESULT_CANCELED){
+                Log.d("RESULT", "There ins't a result");
             }
         }
     }

@@ -71,9 +71,16 @@ public class AddRestaurant extends AppCompatActivity {
                                 }else{
                                     Log.d("Data", "Failed");
                                 }
-                                finish();
                             }
                         });
+
+                int ratingResult = 0;
+                Intent result = new Intent();
+                result.putExtra("result", ratingResult);
+
+                setResult(RESULT_OK, result);
+                finish();
+
             }
         });
     }
