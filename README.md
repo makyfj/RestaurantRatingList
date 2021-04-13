@@ -2,6 +2,14 @@
 
 Androin Application to store restaurant rating information
 
+- Menu options:
+	- Add Restaurant
+	- Filter by rating
+	- Clear rating
+	- App info
+
+- This app use firebase
+
 ![alt restauraList1](https://github.com/makyfj/RestaurantRatingList/blob/main/images/restaurantList-1.png?raw=true)
 ![alt restauraList2](https://github.com/makyfj/RestaurantRatingList/blob/main/images/restaurantList-2.png?raw=true)
 ![alt restauraList3](https://github.com/makyfj/RestaurantRatingList/blob/main/images/restaurantList-3.png?raw=true)
